@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/',cors());
+app.use('/',cors({origin: true}));
 app.use('/login',login(db));
 app.use('/player-login',playerLogin(db));
 app.use('/api',jwtAuth);

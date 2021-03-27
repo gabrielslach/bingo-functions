@@ -23,6 +23,17 @@ const dbContainer = (db) => router.post('/', async function(req, res, next) {
 
   const {pickedCells} = doc;
 
+  if (pickedCells.length === 75) {
+    res.send({
+      data: {
+        pickedCells: pickedCells_temp
+      },
+      oMessage: 'Success',
+      oFlag: 1
+    });
+    return;
+  };
+
   const pickedCells_temp = [...pickedCells];
 
     do {
