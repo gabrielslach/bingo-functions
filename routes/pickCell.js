@@ -35,28 +35,37 @@ const dbContainer = (db) => router.post('/', async function(req, res, next) {
   };
 
   const pickedCells_temp = [...pickedCells];
+  const unpickedCells = [];
 
-    do {
-      const randomFloat = Math.random();
-      randomInt = Math.floor(randomFloat * (rangeEnd - rangeStart)) + rangeStart;
-    } while(pickedCells.includes(randomInt));
+  for (let i = rangeStart; i <= rangeEnd; i++) {
+    if (!pickedCells_temp.includes(i)) {
+      unpickedCells.push(i);
+    };
+  };
 
-    pickedCells_temp.push(randomInt);
+  const randomFloat = Math.random();
+  randomInt = Math.floor(randomFloat * (unpickedCells.length));
+
+  if (randomInt < unpickedCells.length) {
+    pickedCells_temp.push(unpickedCells[randomInt]);
+  } else {
+    pickedCells_temp.push(unpickedCells[unpickedCells.length - 1]);
+  }
     
-    try {
+  try {
       doc = await functions.updateField(db, `${roomId}`, 'roomConfig', {pickedCells: pickedCells_temp});
   } catch (e) {
       console.log(e);
       res.sendStatus(500);
   };
 
-    res.send({
-      data: {
-        pickedCells: pickedCells_temp
-      },
-      oMessage: 'Success',
-      oFlag: 1
-    })
+  res.send({
+    data: {
+      pickedCells: pickedCells_temp
+    },
+    oMessage: 'Success',
+    oFlag: 1
+  });
     
 });
 

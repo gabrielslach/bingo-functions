@@ -42,6 +42,20 @@ const updateField = (db, roomId = null, docName = null, data = {}) => new Promis
     };
 });
 
+const deleteDocument = (db, roomId = null, docName = null) => new Promise((resolve,reject) => {
+    try {
+        db.collection(`${roomId}`)
+        .doc(`${docName}`)
+        .delete()
+        .then(docRef => {
+            resolve()
+        });
+    } catch(e) {
+        console.log(e);
+        reject();
+    };
+});
+
 const getCollection = (db, collectionKey)=> new Promise((resolve, reject) => {
     db.collection(collectionKey)
         .get()
@@ -102,6 +116,7 @@ const createRoom = () => {
 module.exports = {
     writeData,
     updateField,
+    deleteDocument,
     getCollection,
     getDoc,
     createRoom,

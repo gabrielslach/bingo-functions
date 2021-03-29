@@ -9,8 +9,12 @@ var path = require('path');
 var getPlayerRouter = require('./routes/getPlayer');
 var getPlayerAllRouter = require('./routes/getPlayerAll');
 var registerPlayerRouter = require('./routes/registerPlayer');
+var addCardRouter = require('./routes/addCard');
 var pickCellRouter = require('./routes/pickCell');
+var getPickCellSequenceRouter = require('./routes/getPickCellSequence');
 var getPickCellsRouter = require('./routes/getPickedCells');
+var deletePlayerRouter = require('./routes/deletePlayer');
+var deleteCardRouter = require('./routes/deleteCard');
 var jwtAuth = require('./routes/jwtAuth');
 var login = require('./routes/login');
 var playerLogin = require('./routes/playerLogin');
@@ -29,15 +33,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/app/',cors);
-app.use('/app/login',login(db));
-app.use('/app/player-login',playerLogin(db));
-app.use('/app/api',jwtAuth);
-app.use('/app/api/get-player', getPlayerRouter(db));
-app.use('/app/api/get-player-all', getPlayerAllRouter(db));
-app.use('/app/api/register-player', registerPlayerRouter(db));
-app.use('/app/api/pick-cell', pickCellRouter(db));
-app.use('/app/api/get-picked-cells', getPickCellsRouter(db));
+app.use('/api/',cors);
+app.use('/api/login',login(db));
+app.use('/api/player-login',playerLogin(db));
+app.use('/api',jwtAuth);
+app.use('/api/get-player', getPlayerRouter(db));
+app.use('/api/get-player-all', getPlayerAllRouter(db));
+app.use('/api/register-player', registerPlayerRouter(db));
+app.use('/api/pick-cell', pickCellRouter(db));
+app.use('/api/pick-cell-beta', getPickCellSequenceRouter(db));
+app.use('/api/get-picked-cells', getPickCellsRouter(db));
+app.use('/api/delete-player', deletePlayerRouter(db));
+app.use('/api/delete-card', deleteCardRouter(db));
+app.use('/api/add-card', addCardRouter(db));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

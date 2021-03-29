@@ -13,12 +13,12 @@ const dbContainer = (db) => router.post('/', async function(req, res, next) {
         console.log(e);
     };
 
-    const players = [];
+    let players = [];
 
     docs.forEach(doc=> {
         if (!doc.player) return;
         
-        const {id, name, email, code, cards} = doc.player;
+        const {id, name, email, code, cards, timestamp} = doc.player;
   
         const playerDetails = {
             id,
@@ -31,9 +31,14 @@ const dbContainer = (db) => router.post('/', async function(req, res, next) {
 
         players.push({
             player: playerDetails, 
-            cards: cards_parsed
+            cards: cards_parsed,
+            timestamp
         });
     });
+
+    const sortingFx = (a,b) => (b.timestamp - a.timestamp);
+
+    players.sort(sortingFx);
     
   res.send({
     data:{
