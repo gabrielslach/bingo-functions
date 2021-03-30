@@ -15,6 +15,11 @@ const dbContainer = (db) => router.post('/', async function(req, res, next) {
         console.log(e);
     }
 
+    if (!doc) {
+      res.sendStatus(401);
+      return;
+    };
+
     const {id, name, email, cards} = doc.player;
   
     const playerDetails = {
