@@ -17,6 +17,7 @@ var resetPickedCellsRouter = require('./routes/resetPickedCells.js');
 var deletePlayerRouter = require('./routes/deletePlayer');
 var deleteCardRouter = require('./routes/deleteCard');
 var jwtAuth = require('./routes/jwtAuth');
+var accessLvlAuth = require('./routes/accessLvlAuth');
 var login = require('./routes/login');
 var playerLogin = require('./routes/playerLogin');
 
@@ -39,6 +40,7 @@ app.use('/api/login',login(db));
 app.use('/api/player-login',playerLogin(db));
 app.use('/api',jwtAuth);
 app.use('/api/get-player', getPlayerRouter(db));
+app.use('/api',accessLvlAuth);
 app.use('/api/get-player-all', getPlayerAllRouter(db));
 app.use('/api/register-player', registerPlayerRouter(db));
 app.use('/api/pick-cell', pickCellRouter(db));

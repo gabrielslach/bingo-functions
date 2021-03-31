@@ -37,7 +37,7 @@ const dbContainer = (db) => router.post('/', async function(req, res, next) {
     } else {
       res.send({
         oFlag: 0,
-        oMessage: 'Invalid Player Id or Player Code.'
+        oMessage: 'Invalid Player ID or Password.'
       })
       return;
     }
