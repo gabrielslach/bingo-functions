@@ -36,7 +36,7 @@ const dbContainer = (db) => router.post('/', async function(req, res, next) {
         });
     });
 
-    const sortingFx = (a,b) => (b.timestamp - a.timestamp);
+    const sortingFx = (a,b) => (a.timestamp - b.timestamp);
 
     players.sort(sortingFx);
     
