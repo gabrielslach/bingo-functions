@@ -6,7 +6,8 @@ var functions = require('../firestore/functions')
 
 /* GET users listing. */
 const dbContainer = (db) => router.post('/', async function(req, res, next) {
-  const {roomId, playerId} = req.body;
+  const {roomId} = req.credentials;
+  const {playerId} = req.body;
   
     try {
         await functions.deleteDocument(db, roomId, playerId);

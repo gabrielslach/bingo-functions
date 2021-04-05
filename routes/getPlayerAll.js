@@ -5,10 +5,11 @@ var functions = require('../firestore/functions')
 
 /* GET users listing. */
 const dbContainer = (db) => router.post('/', async function(req, res, next) {
-  //search for player using playerID
+  const {roomId, userId} = req.credentials;
+
   let docs = [];
     try {
-        docs = await functions.getCollection(db, 'UPSCA');
+        docs = await functions.getCollection(db, roomId);
     } catch (e) {
         console.log(e);
     };

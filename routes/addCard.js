@@ -16,7 +16,7 @@ const dbContainer = (db) => router.post('/', async function(req, res, next) {
 
     try {
         doc = await functions.getDoc(db, `${roomId}`, `${playerId}`);
-        existingDocIds = await functions.getIds(db, 'UPSCA');
+        existingDocIds = await functions.getIds(db, roomId);
     } catch (e) {
         console.log(e);
         res.sendStatus(500);

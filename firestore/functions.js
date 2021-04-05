@@ -69,6 +69,18 @@ const getCollection = (db, collectionKey)=> new Promise((resolve, reject) => {
         .catch(e=>reject(e));
 });
 
+const getCollections = (db) => new Promise((resolve, reject) => {
+    db.listCollections()
+    .then(collections => {
+        const collectionIds = collections.map(item => item.id);
+        resolve(collectionIds);
+    })
+    .catch(err=> {
+        console.log('getCollections err:', err);
+        reject();
+    });
+});
+
 const getDoc = (db, collectionKey, docKey)=> new Promise((resolve, reject) => {
     db.collection(`${collectionKey}`)
         .doc(`${docKey}`)
@@ -101,17 +113,6 @@ const getIds = (db, collectionKey)=> new Promise((resolve, reject) => {
         .catch(e=>reject(e))
 });
 
-const createRoom = () => {
-    let roomId = '';
-    do {
-        roomId = Math.random()*Math.random() * 1000
-        roomId = roomId.toFixed(0)
-        roomId = String(roomId)
-    } while (roomId.length !== 3);
-    writeData(roomId)
-    return(roomId);
-}
-
 
 module.exports = {
     writeData,
@@ -119,6 +120,6 @@ module.exports = {
     deleteDocument,
     getCollection,
     getDoc,
-    createRoom,
-    getIds
+    getIds,
+    getCollections
 }

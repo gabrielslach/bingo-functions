@@ -6,6 +6,7 @@ const cors = require('cors')({origin: true});
 var createError = require('http-errors');
 var path = require('path');
 
+var createRoomRouter = require('./routes/createRoom');
 var getPlayerRouter = require('./routes/getPlayer');
 var getPlayerAllRouter = require('./routes/getPlayerAll');
 var registerPlayerRouter = require('./routes/registerPlayer');
@@ -36,6 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/api/',cors);
+app.use('/api/create-room', createRoomRouter(db));
 app.use('/api/login',login(db));
 app.use('/api/player-login',playerLogin(db));
 app.use('/api',jwtAuth);

@@ -13,7 +13,7 @@ const dbContainer = (db) => router.post('/', async function(req, res, next) {
     const userId = 'admin';
     let doc = {};
     try {
-      doc = await functions.getDoc(db, 'UPSCA', 'roomConfig');
+      doc = await functions.getDoc(db, roomId, 'roomConfig');
     } catch (error) {
       console.log(error);
       res.sendStatus(500);
