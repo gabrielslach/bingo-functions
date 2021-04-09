@@ -9,7 +9,7 @@ const credentials = require('../credentials');
 
 /* GET users listing. */
 const dbContainer = (db) => router.post('/', async function(req, res, next) {
-    const {roomId = null, userId = null, email = null, playerCode = null} = req.body;
+    const {roomId = null, userId = null, email = null} = req.body;
     let doc = {};
     
     try {
@@ -20,7 +20,7 @@ const dbContainer = (db) => router.post('/', async function(req, res, next) {
       return;
     };
     
-    if (doc && doc.player && doc.player.code === playerCode) {
+    if (doc && doc.player) {
       jsonWebToken.sign({roomId, userId, email}, credentials.secretKey, (err, token) => {
         if (err || !token) {
           res.sendStatus(500);

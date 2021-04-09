@@ -3,7 +3,6 @@ const playerObj = (name = '', email = '',  cards = [],) => ({
     name,
     email,
     cards,
-    code: Math.random().toString(36).substring(2,6),
     timestamp: Date.now()
 });
 

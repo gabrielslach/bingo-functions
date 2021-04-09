@@ -19,13 +19,12 @@ const dbContainer = (db) => router.post('/', async function(req, res, next) {
     docs.forEach(doc=> {
         if (!doc.player) return;
         
-        const {id, name, email, code, cards, timestamp} = doc.player;
+        const {id, name, email, cards, timestamp} = doc.player;
   
         const playerDetails = {
             id,
             name,
             email,
-            code
         };
         
         const cards_parsed = cards.map(i=>({id: i.id, cells: JSON.parse(i.cells)}));
